@@ -220,7 +220,7 @@ namespace CSOS.GUI.Apps
             {
                 windowGraphics = new VirtualGraphics(Width, Height);
             }
-            xterm = new Terminal(System.graphics, windowGraphics, Color.White.ToArgb(), Color.Black.ToArgb(), Width, Height, 0, 0, X, Y);
+            xterm = new TerminalCore(windowGraphics, Color.White.ToArgb(), Color.Black.ToArgb());
             xterm.Write(">");
             cpuinfo = new CpuInfo();
         }
