@@ -30,6 +30,7 @@ namespace CSOS.GUI.Apps
             const int TipWidth = ApplicationIconSize * 2;
             for (int i = 0; i < Core.System.OpenApps.Count; i++)
             {
+                if (!Core.System.OpenApps[i].isWindow) continue;
                 if (PS2Mouse.X > Core.System.OpenApps[i].X_Dock && PS2Mouse.X < Core.System.OpenApps[i].X_Dock + ApplicationIconSize && PS2Mouse.Y > Y + Devide && PS2Mouse.Y < Y + Devide + ApplicationIconSize)
                 {
                     int TX = Core.System.OpenApps[i].X_Dock - ((TipWidth / 2) - (ApplicationIconSize / 2));
@@ -51,6 +52,7 @@ namespace CSOS.GUI.Apps
             }
             for (int i = 0; i < Core.System.ClosedApps.Count; i++)
             {
+                if (!Core.System.ClosedApps[i].isWindow) continue;
                 if (PS2Mouse.X > Core.System.ClosedApps[i].X_Dock && PS2Mouse.X < Core.System.ClosedApps[i].X_Dock + ApplicationIconSize && PS2Mouse.Y > Y + Devide && PS2Mouse.Y < Y + Devide + ApplicationIconSize)
                 {
                     int TX = Core.System.ClosedApps[i].X_Dock - ((TipWidth / 2) - (ApplicationIconSize / 2));
@@ -109,7 +111,7 @@ namespace CSOS.GUI.Apps
                 }
                 else
                 {
-                    Program.graphics.DrawImage(Core.System.ClosedApps[i].Icon_48, aX, Y + Devide,true);
+                    Program.graphics.DrawImage(Core.System.ClosedApps[i].Icon_48, aX, Y + Devide, true);
                 }
 
                 Core.System.ClosedApps[i].X_Dock = aX;

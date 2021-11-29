@@ -12,8 +12,8 @@ namespace CSOS.GUI.Apps
             //(BitFont.Calculate(Core.System.DefaultFontName, text) + 45) + 
             Width = (16 + BitFont.Calculate(Core.System.DefaultFontName, Title) + (15 * 2)) + 2;
             _text = text;
-            Dock = false;
-            Title = "Message!";
+            //Dock = false;
+            Title = " ";
             if (windowGraphics == null) windowGraphics = new VirtualGraphics(Width, Height);
 
         }
