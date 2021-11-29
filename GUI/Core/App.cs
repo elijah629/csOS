@@ -10,7 +10,7 @@ namespace CSOS.GUI.Core
     public class App
     {
         public int Index = 0;
-        public bool Dock = true;
+        //public bool Dock = true;
         public int X;
         public int Y;
         public int Width = 200;
@@ -79,7 +79,7 @@ namespace CSOS.GUI.Core
                         if (PS2Mouse.X > X + Width - (Rad * 3) && Actived && isWindow)
                         {
                             System.OpenApps.Remove(this);
-                            if (Dock) System.ClosedApps.Add(this);
+                            //if (Dock) System.ClosedApps.Add(this);
                             return;
                         }
                         if (PS2Mouse.X > X + Width - (Rad * 6) && Actived && isWindow)
