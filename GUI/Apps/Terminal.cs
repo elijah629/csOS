@@ -200,102 +200,21 @@ namespace CSOS.GUI.Apps
     public class Terminal : App
     {
         private TerminalCore terminal;
-        CpuInfo cpuinfo;
-        
         public Terminal()
         {
+            Width = 300;
+            Title = "Terminal";
             Icon_16 = new Bitmap(ResourceManager.GetObject("terminal_16.bmp"));
             Icon_48 = new Bitmap(ResourceManager.GetObject("terminal_48.bmp"));
-            X = 50;
-            isWindow = true;
-            Height = 500;
-
-            Title="Terminal";
-
-            Y = 50;
-
-            Width = 600;
-
-            if (windowGraphics == null)
-            {
-                windowGraphics = new VirtualGraphics(Width, Height);
-            }
-            xterm = new TerminalCore(windowGraphics, Color.White.ToArgb(), Color.Black.ToArgb());
-            xterm.Write(">");
-            cpuinfo = new CpuInfo();
+            if (windowGraphics == null) windowGraphics = new VirtualGraphics(Width, Height);
+            terminal = new TerminalCore(windowGraphics, Color.White.ToArgb(), Color.Black.ToArgb());
+            terminal.SetCursorPosition(10, 10);
+            terminal.WriteLine("Hello!, I am in development");
         }
-        string Line="";
-
-        KeyCode keycode;
         public override void InputUpdate()
         {
-            xterm.winX=X; xterm.winY=Y;
-            //xterm.Write("> ");
             
-            keycode=Console.ReadKey(false);
-            if (keycode == KeyCode.Delete)
-            {
-                if (Line.Length != 0)
-                {
-                    xterm.Previous();
-                    windowGraphics.DrawFilledRectangle(xterm.BackgroundColor, xterm.x, xterm.y, xterm.fontWidth, xterm.fontHeight);
-                    Line = Line.Substring(0, Line.Length - 1);
-                    windowGraphics.Update();
-                }
-            }
-            else if (keycode == KeyCode.Enter)
-            {
-                xterm.WriteLine("");
-                processInput(Line.ToLower());
-                Line="";
-                xterm.Write(">");
-            }
-            else if (keycode != 0)
-            {
-                if (PS2Keyboard.IsCapsLock || PS2Keyboard.IsShiftHeld)
-                {
-                    Line += keycode.KeyCodeToString().ToUpper();
-                    xterm.Write(keycode.KeyCodeToString().ToUpper());
-                }
-                else
-                {
-                    Line += keycode.KeyCodeToString().ToLower();
-                    xterm.Write(keycode.KeyCodeToString().ToLower());
-                }
-                
-            }
         }
-        
-        private void processInput(string inp) {
-            switch (inp) {
-                case "help":
-                    xterm.WriteLine("poweroff - Shutdown the system");
-                    xterm.WriteLine("reboot - Reboots the system");
-                    xterm.WriteLine("about - shows a message about the system");
-                    xterm.WriteLine("neofetch - display a message with a logo");
-                    break;
-                case "poweroff":
-                    Power.Shutdown();
-                    break;
-                case "reboot":
-                    Power.Reboot();
-                    break;
-                case "about":
-                    xterm.WriteLine("CSOS Is an OS written only in C#, with MOSA (Managed Open System Alliance)");
-                    xterm.WriteLine("Credits: Elijah629 on github, asterd-og on github");
-                    break;
-                case "neofetch":
-                    xterm.WriteLine(@"            ____   _____          Information about the system: ");
-                    xterm.WriteLine($@"           / __ \ / ____|        Cpu Family: {cpuinfo.Family.ToString()}");
-                    xterm.WriteLine($@"   ___ ___| |  | | (___          Cpu Model: {cpuinfo.Model.ToString()}");
-                    xterm.WriteLine($@"  / __/ __| |  | |\___ \         Cpu Number of cores: {cpuinfo.NumberOfCores.ToString()}");
-                    xterm.WriteLine($@" | (__\__ \ |__| |____) |        Cpu Stepping: {cpuinfo.Stepping.ToString()}");
-                    xterm.WriteLine($@"  \___|___/\____/|_____/         Cpu Supports: Brand String - {cpuinfo.SupportsBrandString.ToString()} | Extended CpuID - {cpuinfo.SupportsExtendedCpuid.ToString()}");
-                    break;
-            }
-
-        }
-        
         public override void UIUpdate()
         {
             Program.graphics.DrawImageASM(windowGraphics.bitmap, X, Y);
