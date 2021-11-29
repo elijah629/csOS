@@ -1,4 +1,4 @@
-﻿using CSOS.GUI.Core;
+using CSOS.GUI.Core;
 using Mosa.External.x86;
 using Mosa.External.x86.Drawing;
 using Mosa.External.x86.Drawing.Fonts;
