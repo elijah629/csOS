@@ -4,14 +4,13 @@ using System.Drawing;
 using Mosa.Runtime.x86;
 using Mosa.External.x86;
 
-namespace csOS.GUI.Apps
+namespace CSOS.GUI.Apps
 {
     class TaskManager : App
     {
 
         public App_taskmanager() {
-            X=500;
-            Y=300;
+            if (windowGraphics == null) windowGraphics = new VirtualGraphics(Height, Width);
             Width=325;
             Height=325;
             Title="Task Manager";
@@ -19,7 +18,6 @@ namespace csOS.GUI.Apps
 
         public override void UIUpdate()
         {
-            if (windowGraphics == null) windowGraphics = new VirtualGraphics(Height, Width);
             windowGraphics.Clear(Color.White.ToArgb());
             
             for (int i=0; i < Core.System.OpenApps.Count; i++)
