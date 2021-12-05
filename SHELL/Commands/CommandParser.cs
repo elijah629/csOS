@@ -18,19 +18,11 @@ namespace CSOS.Shell.Commands
             string[] sections = commandLine.Split(' ');
             string Command = sections[0];
             for (int i = 1; i < sections.Length; i++)
-            {
                 if (sections[i].StartsWith("-"))
-                {
                     foreach (var flag in sections[i].ToCharArray())
-                    {
                         if (flag != '-') Flags.Add(flag);
-                    }
-                }
-                else
-                {
-                    Arguments.Add(sections[i]);
-                }
-            }
+                        else
+                            Arguments.Add(sections[i]);
             return new CommandParserOutput()
             {
                 Arguments = Arguments,

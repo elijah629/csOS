@@ -31,6 +31,7 @@ namespace CSOS.Helper
                 VBEConsole.Clear();
                 VBEConsole.WriteLine("W = UP", 0x0000FF);
                 VBEConsole.WriteLine("S = DOWN", 0x0000FF);
+                VBEConsole.WriteLine("ENTER = SELECT", 0x0000FF);
                 VBEConsole.SetPosition(left_ * 8, (top_ - 1) * 16);
                 VBEConsole.Write(title_, 0x0000FF);
                 foreach (Tuple<string, bool> option in items)

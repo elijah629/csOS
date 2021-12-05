@@ -54,8 +54,8 @@ namespace CSOS.GUI.Core
             ClosedApps = new List<App>();
             new TaskBar().Open();
             new Dock().Open();
-            new Terminal().Open();
-            new MessageBox("Hello").Open();
+            new TaskManager().Close();
+            new Terminal().Close();
         }
         public void Update()
         {

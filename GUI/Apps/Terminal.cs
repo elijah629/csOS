@@ -1,4 +1,4 @@
-using CSOS.GUI.Core;
+﻿using CSOS.GUI.Core;
 using Mosa.External.x86;
 using Mosa.External.x86.Drawing;
 using Mosa.External.x86.Drawing.Fonts;
@@ -7,16 +7,16 @@ using Mosa.Kernel.x86;
 using Mosa.Runtime.x86;
 using System.Drawing;
 
-class TerminalCore
+public class TerminalCore
 {
     private int x = 0;
     private int y = 0;
-    public uint ForegroundColor;
-    public uint BackgroundColor;
+    public uint ForegroundColor = 0xFFFFFF;
+    public uint BackgroundColor = 0x0;
     public readonly int fontWidth = 8;
     public readonly int fontHeight = 16;
-    private int scrW;
-    private int scrH;
+    private readonly int scrW;
+    private readonly int scrH;
 
     public VirtualGraphics windowGraphics;
     public bool CursorVisible = true;
@@ -199,7 +199,7 @@ namespace CSOS.GUI.Apps
 {
     public class Terminal : App
     {
-        private TerminalCore terminal;
+        private readonly TerminalCore terminal;
         public Terminal()
         {
             Width = 300;
@@ -208,12 +208,12 @@ namespace CSOS.GUI.Apps
             Icon_48 = new Bitmap(ResourceManager.GetObject("terminal_48.bmp"));
             if (windowGraphics == null) windowGraphics = new VirtualGraphics(Width, Height);
             terminal = new TerminalCore(windowGraphics, Color.White.ToArgb(), Color.Black.ToArgb());
-            terminal.SetCursorPosition(10, 10);
+            terminal.ToTop();
             terminal.WriteLine("Hello!, I am in development");
         }
         public override void InputUpdate()
         {
-            
+
         }
         public override void UIUpdate()
         {

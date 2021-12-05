@@ -10,12 +10,11 @@ namespace CSOS.GUI.Core
     public class App
     {
         public int Index = 0;
-        //public bool Dock = true;
+        public bool Dock = true;
         public int X;
         public int Y;
         public int Width = 200;
         public int Height = 125;
-        public Thread AppThread;
         private bool Moving = false;
         private int OffsetX;
         private int OffsetY;
@@ -32,7 +31,7 @@ namespace CSOS.GUI.Core
 
         public bool Moveble = true;
 
-        public bool Actived => Index == System.OpenApps.Count - 1;
+        public bool Activated => Index == System.OpenApps.Count - 1;
 
         public App()
         {
@@ -43,7 +42,7 @@ namespace CSOS.GUI.Core
             X = (Program.ScreenWidth + Width) / 2;
             Y = (Program.ScreenHeight + Height) / 2;
         }
-        public void Run() {AppThread.Start();AppThread = null;}
+        
         public static void MoveWindowToEnd(App window)
         {
             if (window.Index == System.OpenApps.Count - 1) return;
@@ -76,13 +75,13 @@ namespace CSOS.GUI.Core
                 {
                     if (PS2Mouse.X > X && PS2Mouse.X < X + Width && PS2Mouse.Y > Y - BarHeight && PS2Mouse.Y < Y && !Moving && Moveble)
                     {
-                        if (PS2Mouse.X > X + Width - (Rad * 3) && Actived && isWindow)
+                        if (PS2Mouse.X > X + Width - (Rad * 3) && Activated && isWindow)
                         {
                             System.OpenApps.Remove(this);
-                            //if (Dock) System.ClosedApps.Add(this);
+                            if (Dock) System.ClosedApps.Add(this);
                             return;
                         }
-                        if (PS2Mouse.X > X + Width - (Rad * 6) && Actived && isWindow)
+                        if (PS2Mouse.X > X + Width - (Rad * 6) && Activated && isWindow)
                         {
                             Visible = false;
                             return;
@@ -100,13 +99,13 @@ namespace CSOS.GUI.Core
                     Moving = false;
                 }
 
-                if (Moving && Actived)
+                if (Moving && Activated)
                 {
                     X = Math.Clamp(PS2Mouse.X - OffsetX, 1, Program.ScreenWidth - (Width + 1));
                     Y = Math.Clamp(PS2Mouse.Y - OffsetY, BarHeight + TaskBar.TaskBarHeight, Program.ScreenHeight - (Height + (BarHeight - (5 * 2))));
                 }
 
-                if (Actived)
+                if (Activated)
                 {
                     Program.graphics.DrawFilledRectangle(System.Color2, X, Y - BarHeight + 5, Width, BarHeight - 5);
                     Program.graphics.DrawFilledRoundedRectangle(System.Color2, X, Y - BarHeight, Width, BarHeight, 5);
@@ -137,14 +136,14 @@ namespace CSOS.GUI.Core
 
 
             }
-            if (Actived || !isWindow) InputUpdate();
+            if (Activated || !isWindow) InputUpdate();
 
             UIUpdate();
 
             if (isWindow)
             {
-                Program.graphics.DrawLine(Actived ? System.Color2 : System.Color3, X, Y, X, Y + Height);
-                Program.graphics.DrawLine(Actived ? System.Color2 : System.Color3, X + Width - 1, Y, X + Width - 1, Y + Height);
+                Program.graphics.DrawLine(Activated ? System.Color2 : System.Color3, X, Y, X, Y + Height);
+                Program.graphics.DrawLine(Activated ? System.Color2 : System.Color3, X + Width - 1, Y, X + Width - 1, Y + Height);
             }
         }
         public void Close()
