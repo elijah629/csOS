@@ -32,19 +32,19 @@ namespace CSOS.Helper
                 VBEConsole.WriteLine("W = UP", 0x0000FF);
                 VBEConsole.WriteLine("S = DOWN", 0x0000FF);
                 VBEConsole.WriteLine("ENTER = SELECT", 0x0000FF);
-                VBEConsole.SetPosition(left_ * 8, (top_ - 1) * 16);
+                VBEConsole.SetPosition(left_, top_ - 1);
                 VBEConsole.Write(title_, 0x0000FF);
                 foreach (Tuple<string, bool> option in items)
                 {
                     if (option.Item2 == true)
                     {
                         selected = items.IndexOf(option);
-                        VBEConsole.SetPosition(left_ * 8, (items.IndexOf(option) + top_) * 16);
+                        VBEConsole.SetPosition(left_, items.IndexOf(option) + top_);
                         VBEConsole.Write($"> {option.Item1}", 0x00FF00);
                     }
                     else
                     {
-                        VBEConsole.SetPosition(left_ * 8, (items.IndexOf(option) + top_) * 16);
+                        VBEConsole.SetPosition(left_, items.IndexOf(option) + top_);
                         VBEConsole.Write($"  {option.Item1}", 0xFFFFFF);
                     }
                 }

@@ -1,17 +1,12 @@
 ﻿using CSOS.GUI.Apps;
-using Mosa.External.x86;
-using Mosa.External.x86.Drawing;
 using Mosa.External.x86.Drawing.Fonts;
 using Mosa.External.x86.Driver;
-using Mosa.Kernel.x86;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Threading;
-using System;
 
 namespace CSOS.GUI.Core
 {
-    public class System
+    public static class System
     {
         public const uint Color1 = 0x141414;
         public const uint Color2 = 0x313131;
@@ -20,7 +15,7 @@ namespace CSOS.GUI.Core
         public static int[] cursor;
         public static List<App> OpenApps;
         public static List<App> ClosedApps;
-        public unsafe System()
+        public static unsafe void Boot()
         {
             PS2Mouse.Initialize(Program.ScreenWidth, Program.ScreenHeight);
             string CustomCharset = "!\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~这个操作系统是乐至县吴仲良中学高一十三班倪繁发的作品。使用C#写成，使用了MOSA编译器，并且使用了一些NASM汇编。我的目的是做出一款中国人的操作系统！字库生成和解析程序也由我写成。输入help获取帮助！你好Bonjourनमस्तेสวัสดีครับ/คะ!hej,hallåこんにちは여보세요приветהלוهتاف للترحيب, ‏أهلا";
@@ -57,7 +52,7 @@ namespace CSOS.GUI.Core
             new TaskManager().Close();
             new Terminal().Close();
         }
-        public void Update()
+        public static void Update()
         {
             Program.graphics.Clear(Color1);
             Program.graphics.DrawBitFontString(DefaultFontName, 0xFFF0F3F4, "FPS: " + FPSMeter.FPS, 10, 46);
@@ -72,14 +67,20 @@ namespace CSOS.GUI.Core
         public static void DrawCursor(int x, int y)
         {
             for (int h = 0; h < 21; h++)
+            {
                 for (int w = 0; w < 12; w++)
                 {
                     if (cursor[h * 12 + w] == 1)
+                    {
                         Program.graphics.DrawPoint(Color.Black.ToArgb(), w + x, h + y);
-                    if (cursor[h * 12 + w] == 2)
-                        Program.graphics.DrawPoint(Color.White.ToArgb(), w + x, h + y);
-                }
+                    }
 
+                    if (cursor[h * 12 + w] == 2)
+                    {
+                        Program.graphics.DrawPoint(Color.White.ToArgb(), w + x, h + y);
+                    }
+                }
+            }
         }
     }
 }

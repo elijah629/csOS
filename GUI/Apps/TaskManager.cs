@@ -12,7 +12,11 @@ namespace CSOS.GUI.Apps
         {
             Width = 325;
             Height = 325;
-            if (windowGraphics == null) windowGraphics = new VirtualGraphics(Height, Width);
+            if (windowGraphics == null)
+            {
+                windowGraphics = new VirtualGraphics(Height, Width);
+            }
+
             Title = "Task Manager";
         }
 

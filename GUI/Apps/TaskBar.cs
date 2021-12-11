@@ -8,7 +8,7 @@ using System.Drawing;
 
 namespace CSOS.GUI.Apps
 {
-    internal class TaskBar : App
+    public class TaskBar : App
     {
         public TaskBar()
         {
@@ -30,9 +30,15 @@ namespace CSOS.GUI.Apps
         public override void InputUpdate()
         {
             if (PS2Mouse.MouseStatus == Mosa.External.x86.Driver.Input.MouseStatus.Left)
+            {
                 if (PS2Mouse.X >= Width - (TaskBarHeight / 2) - 7 && PS2Mouse.X <= Width - (TaskBarHeight / 2) + 7)
+                {
                     if (PS2Mouse.Y >= (TaskBarHeight / 2) - 7 && PS2Mouse.Y <= (TaskBarHeight / 2) + 7)
+                    {
                         Power.Shutdown();
+                    }
+                }
+            }
         }
         public override void UIUpdate()
         {

@@ -1,23 +1,22 @@
+using CSOS.Helper;
 using Mosa.External.x86;
+using Mosa.External.x86.Drawing;
 using Mosa.External.x86.Drawing.Fonts;
 using Mosa.External.x86.Driver;
+//using Mosa.External.x86.FileSystem
 using Mosa.Kernel.x86;
 using Mosa.Runtime.Plug;
 using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Threading;
-using CSOS.Helper;
-using Mosa.External.x86.Drawing;
-//using Mosa.External.x86.FileSystem;
 
 namespace CSOS
 {
-    public unsafe static class Program
+    public static unsafe class Program
     {
         public static int ScreenWidth = 1024;
         public static int ScreenHeight = 768;
         private static bool Panicked = false;
-        private static bool isGUI = true;
         public static Graphics graphics;
         //public static FAT32 fs;
         public static void Main() { }
@@ -33,12 +32,12 @@ namespace CSOS
         {
             IDT.OnInterrupt += IDT_OnInterrupt;
             Panic.OnPanic += Panic_OnPanic;
-            
-            //IDisk disk = new IDEDisk(0);
-            //MBR mBR = new MBR();
-            //mBR.Initialize(disk);
-            //fs = new FAT32(disk, mBR.PartitionInfos[0]);
-            
+
+            /*IDisk disk = new IDEDisk(0);
+            MBR mBR = new MBR();
+            mBR.Initialize(disk);
+            fs = new FAT32(disk, mBR.PartitionInfos[0]);*/
+
             if (VBE.IsVBEAvailable)
             {
                 ScreenWidth = VBE.VBEModeInfo->ScreenWidth;
@@ -49,38 +48,47 @@ namespace CSOS
         }
         public static void SelectBoot()
         {
-            VBEConsole.setup(graphics,0x0);
-            Menu menu = new Menu("Select OS mode", new string[] { "GUI", "SHELL" }, (ScreenWidth / 8) / 2, ScreenHeight / 16  / 2);
+            VBEConsole.setup(graphics, 0x0);
+            Menu menu = new Menu("Select OS mode", new string[] { "GUI", "SHELL" }, (ScreenWidth / 8) / 2, ScreenHeight / 16 / 2);
             int mode = menu.Start();
             menu.Stop();
-            isGUI = mode == 0;
-            if (isGUI)
+            graphics.Clear(0x0);
+            graphics.Update();
+            if (mode == 0)
             {
                 BootGUI();
-            } else
+            }
+            else
             {
                 BootShell();
             }
         }
         public static void BootGUI()
         {
-            graphics.Clear(0x0);
-            graphics.Update();
-            GUI.Core.System GUISystem = new GUI.Core.System();
+            GUI.Core.System.Boot();
             new Thread(() =>
             {
-                for (; ; ) if (!Panicked) GUISystem.Update();
+                for (; ; )
+                {
+                    if (!Panicked)
+                    {
+                        GUI.Core.System.Update();
+                    }
+                }
             }).Start();
         }
         private static void BootShell()
         {
-
-            graphics.Clear(0x0);
-            graphics.Update();
-            Shell.Core.System ShellSystem = new Shell.Core.System();
+            Shell.Core.System.Boot();
             new Thread(() =>
             {
-                for (; ; ) if (!Panicked) ShellSystem.Update();
+                for (; ; )
+                {
+                    if (!Panicked)
+                    {
+                        Shell.Core.System.Update();
+                    }
+                }
             }).Start();
         }
         private static void IDT_OnInterrupt(uint irq, uint error)
@@ -97,23 +105,13 @@ namespace CSOS
         }
         public static void Panic_OnPanic(string msg)
         {
+            Panicked = true;
             for (; ; )
             {
-                if (isGUI)
-                {
-
-                    Panicked = true;
-                    graphics.Clear(Color.Blue.ToArgb());
-                    graphics.DrawACS16String(Color.White.ToArgb(), "Kernel Panic!", 10, 10);
-                    graphics.DrawACS16String(Color.White.ToArgb(), msg, 10, 30);
-                    graphics.Update();
-                } else
-                {
-                    Panicked = true;
-                    Console.Clear();
-                    Console.BackgroundColor = ConsoleColor.Blue;
-                    Console.WriteLine("Kernel Panic!\n" + msg);
-                }
+                graphics.Clear(0x0000FF);
+                graphics.DrawACS16String(Color.White.ToArgb(), "Kernel Panic!", 10, 10);
+                graphics.DrawACS16String(Color.White.ToArgb(), msg, 10, 30);
+                graphics.Update();
             }
         }
     }

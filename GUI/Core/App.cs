@@ -3,7 +3,6 @@ using Mosa.External.x86.Drawing;
 using Mosa.External.x86.Drawing.Fonts;
 using Mosa.External.x86.Driver;
 using System;
-using System.Threading;
 
 namespace CSOS.GUI.Core
 {
@@ -37,15 +36,26 @@ namespace CSOS.GUI.Core
         {
             X_Dock = -1;
             Y_Dock = -1;
-            if (Height < 100) Height = 100;
-            if (Width < 100) Width = 100;
+            if (Height < 100)
+            {
+                Height = 100;
+            }
+
+            if (Width < 100)
+            {
+                Width = 100;
+            }
+
             X = (Program.ScreenWidth + Width) / 2;
             Y = (Program.ScreenHeight + Height) / 2;
         }
-        
+
         public static void MoveWindowToEnd(App window)
         {
-            if (window.Index == System.OpenApps.Count - 1) return;
+            if (window.Index == System.OpenApps.Count - 1)
+            {
+                return;
+            }
 
             int index = window.Index;
             foreach (var v in System.OpenApps)
@@ -78,7 +88,11 @@ namespace CSOS.GUI.Core
                         if (PS2Mouse.X > X + Width - (Rad * 3) && Activated && isWindow)
                         {
                             System.OpenApps.Remove(this);
-                            if (Dock) System.ClosedApps.Add(this);
+                            if (Dock)
+                            {
+                                System.ClosedApps.Add(this);
+                            }
+
                             return;
                         }
                         if (PS2Mouse.X > X + Width - (Rad * 6) && Activated && isWindow)
@@ -122,7 +136,8 @@ namespace CSOS.GUI.Core
                 if (Icon_16 == null)
                 {
                     Program.graphics.DrawFilledRectangle(0x0000FF, X + ((BarHeight / 2) - 8), Y - BarHeight / 2 - (16 / 2), 16, 16);
-                } else
+                }
+                else
                 {
                     Program.graphics.DrawImage(Icon_16, X + ((BarHeight / 2) - 8), Y - BarHeight / 2 - (16 / 2), true);
                 }
@@ -136,7 +151,10 @@ namespace CSOS.GUI.Core
 
 
             }
-            if (Activated || !isWindow) InputUpdate();
+            if (Activated || !isWindow)
+            {
+                InputUpdate();
+            }
 
             UIUpdate();
 
@@ -157,7 +175,11 @@ namespace CSOS.GUI.Core
         }
         public void Open()
         {
-            if (System.ClosedApps.Contains(this)) System.ClosedApps.Remove(this);
+            if (System.ClosedApps.Contains(this))
+            {
+                System.ClosedApps.Remove(this);
+            }
+
             Index = System.OpenApps.Count;
             System.OpenApps.Add(this);
             Activate();
