@@ -2,7 +2,7 @@ using Mosa.External.x86.Drawing;
 using Mosa.External.x86.Drawing.Fonts;
 using Mosa.External.x86.Driver;
 
-namespace CSOS.GUI.Core {
+namespace CSOS.GUI.UI {
     public class Button
     {
         public uint BackgroundColor=0xFFFFFF;
