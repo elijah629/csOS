@@ -1,11 +1,13 @@
 # csOS
-csOS is a C# Operating System, written in MOSA
+csOS is a C# Operating System, written in [Mosa](https://github.com/nifanfa/MOSA-Core)
 
-OPEN SOURCE! I encourage you to look at the code.
-
-Credits:
+## Credits:
 
 @Elijah629
 @asterd-og
 
-![image](https://user-images.githubusercontent.com/62805599/143794124-45a43636-03e8-4cbe-9c4b-1f005fd219f7.png)
+## Images
+
+![image](https://user-images.githubusercontent.com/62805599/145689277-9d21202f-a5c3-4c53-93f8-77e745f38e4e.png)
+
+![image](https://user-images.githubusercontent.com/62805599/145689553-98bdb1ec-a8c5-4018-96d1-a3e7d3f6a8fb.png)
