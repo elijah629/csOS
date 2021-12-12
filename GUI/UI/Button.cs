@@ -15,7 +15,7 @@ namespace CSOS.GUI.UI
         private int Height = 20;
         private int Width = 0;
         private uint Current_Color;
-        public uint Background_Color = Core.System.Color2;
+        public uint Background_Color = ThemeManager.GetTheme().UnFocusedColor;
         public int Border_Radius = 0;
         private bool PressLock = false;
         public Action OnClick;
@@ -27,11 +27,11 @@ namespace CSOS.GUI.UI
         public void Update(VirtualGraphics graphics, int winX, int winY)
         {
             graphics.DrawFilledRoundedRectangle(Current_Color, X, Y, Width, Height, Border_Radius);
-            graphics.DrawBitFontString(Core.System.DefaultFontName, Core.System.TextColor, Text, X, Y);
+            graphics.DrawBitFontString(Core.System.DefaultFontName, ThemeManager.GetTheme().TextColor, Text, X, Y);
             if (PS2Mouse.X > X + winX && PS2Mouse.X < X + winX + Width && PS2Mouse.Y > Y + winY && PS2Mouse.Y < Y + winY + Height)
             {
                 CursorManager.SetCursor("pointer");
-                Current_Color = Core.System.Color1;
+                Current_Color = ThemeManager.GetTheme().HoverColor;//Core.System.Color1;
             }
             else
             {
@@ -51,21 +51,21 @@ namespace CSOS.GUI.UI
             } else
             {
                 PressLock = false;
-                Current_Color = Background_Color;
             }
         }
         public void Update()
         {
             Graphics graphics = Program.graphics;
             graphics.DrawFilledRoundedRectangle(Current_Color, X, Y, Width, Height, Border_Radius);
-            graphics.DrawBitFontString(Core.System.DefaultFontName, Core.System.TextColor, Text, X, Y);
+            graphics.DrawBitFontString(Core.System.DefaultFontName, ThemeManager.GetTheme().TextColor, Text, X, Y);
             if (PS2Mouse.X > X && PS2Mouse.X < X + Width && PS2Mouse.Y > Y && PS2Mouse.Y < Y + Height)
             {
                 CursorManager.SetCursor("pointer");
-                Current_Color = Core.System.Color1;
+                Current_Color = ThemeManager.GetTheme().HoverColor;
             }
             else
             {
+                Current_Color = Background_Color;
                 CursorManager.SetCursor("normal");
             }
             if (PS2Mouse.MouseStatus == MouseStatus.Left)
@@ -81,7 +81,6 @@ namespace CSOS.GUI.UI
             } else
             {
                 PressLock = false;
-                Current_Color = Background_Color;
             }
         }
     }
