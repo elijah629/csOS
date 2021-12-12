@@ -121,33 +121,33 @@ namespace CSOS.GUI.Core
 
                 if (Activated)
                 {
-                    Program.graphics.DrawFilledRectangle(System.Color2, X, Y - BarHeight + 5, Width, BarHeight - 5);
-                    Program.graphics.DrawFilledRoundedRectangle(System.Color2, X, Y - BarHeight, Width, BarHeight, 5);
+                    Program.graphics.DrawFilledRectangle(ThemeManager.GetTheme().FocusedColor, X, Y - BarHeight + 5, Width, BarHeight - 5);
+                    Program.graphics.DrawFilledRoundedRectangle(ThemeManager.GetTheme().FocusedColor, X, Y - BarHeight, Width, BarHeight, 5);
 
-                    Program.graphics.DrawFilledRoundedRectangle(System.Color2, X, Y + Height - 5, Width, BarHeight - 5, 5);
+                    Program.graphics.DrawFilledRoundedRectangle(ThemeManager.GetTheme().FocusedColor, X, Y + Height - 5, Width, BarHeight - 5, 5);
                 }
                 else
                 {
-                    Program.graphics.DrawFilledRectangle(System.Color3, X, (Y - BarHeight) + 5, Width, BarHeight - 5);
-                    Program.graphics.DrawFilledRoundedRectangle(System.Color3, X, Y - BarHeight, Width, BarHeight, 5);
+                    Program.graphics.DrawFilledRectangle(ThemeManager.GetTheme().UnFocusedColor, X, (Y - BarHeight) + 5, Width, BarHeight - 5);
+                    Program.graphics.DrawFilledRoundedRectangle(ThemeManager.GetTheme().UnFocusedColor, X, Y - BarHeight, Width, BarHeight, 5);
 
-                    Program.graphics.DrawFilledRoundedRectangle(System.Color3, X, Y + Height - 5, Width, BarHeight - 5, 5);
+                    Program.graphics.DrawFilledRoundedRectangle(ThemeManager.GetTheme().UnFocusedColor, X, Y + Height - 5, Width, BarHeight - 5, 5);
                 }
                 if (Icon_16 == null)
                 {
-                    Program.graphics.DrawFilledRectangle(0x0000FF, X + ((BarHeight / 2) - 8), Y - BarHeight / 2 - (16 / 2), 16, 16);
+                    Program.graphics.DrawFilledRectangle(ThemeManager.GetTheme().NoAppIcon, X + ((BarHeight / 2) - 8), Y - BarHeight / 2 - (16 / 2), 16, 16);
                 }
                 else
                 {
                     Program.graphics.DrawImage(Icon_16, X + ((BarHeight / 2) - 8), Y - BarHeight / 2 - (16 / 2), true);
                 }
-                Program.graphics.DrawBitFontString(System.DefaultFontName, 0xFFF0F3F4, Title, X + ((BarHeight / 2) - 8) + 21, Y - BarHeight / 2 - (16 / 2));
+                Program.graphics.DrawBitFontString(System.DefaultFontName, ThemeManager.GetTheme().TextColor, Title, X + ((BarHeight / 2) - 8) + 21, Y - BarHeight / 2 - (16 / 2));
 
-                Program.graphics.DrawFilledRectangle(0xFFF0F3F4, X, Y, Width, Height);
+                Program.graphics.DrawFilledRectangle(ThemeManager.GetTheme().AppBackground, X, Y, Width, Height);
 
-                Program.graphics.DrawFilledCircle(0xFFFF0000, X + Width - (Rad * 2), Y - BarHeight / 2, Rad);
+                Program.graphics.DrawFilledCircle(ThemeManager.GetTheme().WindowCloseButtonColor, X + Width - (Rad * 2), Y - BarHeight / 2, Rad);
 
-                Program.graphics.DrawFilledCircle(0xFFFFFF, X + Width - (Rad * 6), Y - BarHeight / 2, Rad);
+                Program.graphics.DrawFilledCircle(ThemeManager.GetTheme().WindowMinimizeButtonColor, X + Width - (Rad * 6), Y - BarHeight / 2, Rad);
 
 
             }
@@ -160,8 +160,8 @@ namespace CSOS.GUI.Core
 
             if (isWindow)
             {
-                Program.graphics.DrawLine(Activated ? System.Color2 : System.Color3, X, Y, X, Y + Height);
-                Program.graphics.DrawLine(Activated ? System.Color2 : System.Color3, X + Width - 1, Y, X + Width - 1, Y + Height);
+                Program.graphics.DrawLine(Activated ? ThemeManager.GetTheme().FocusedColor : ThemeManager.GetTheme().UnFocusedColor, X, Y, X, Y + Height);
+                Program.graphics.DrawLine(Activated ? ThemeManager.GetTheme().FocusedColor : ThemeManager.GetTheme().UnFocusedColor, X + Width - 1, Y, X + Width - 1, Y + Height);
             }
         }
         public void Close()

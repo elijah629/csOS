@@ -39,8 +39,8 @@ namespace CSOS.GUI.Apps
                     int TX = Core.System.OpenApps[i].X_Dock - ((TipWidth / 2) - (ApplicationIconSize / 2));
                     int TY = Y - (int)((ApplicationIconSize + Devide) * 0.8f);
                     int TL = BitFont.Calculate(Core.System.DefaultFontName, Core.System.OpenApps[i].Title);
-                    Program.graphics.DrawFilledRoundedRectangle(Core.System.Color2, TX, TY, TipWidth, 8 + Devide * 2, Radius);
-                    Program.graphics.DrawBitFontString(Core.System.DefaultFontName, 0xFFF0F3F4, Core.System.OpenApps[i].Title, TX + ((TipWidth / 2) - (TL / 2)) - 8, TY + (((8 + Devide * 2) / 2) - 8));
+                    Program.graphics.DrawFilledRoundedRectangle(ThemeManager.GetTheme().FocusedColor, TX, TY, TipWidth, 8 + Devide * 2, Radius);
+                    Program.graphics.DrawBitFontString(Core.System.DefaultFontName, ThemeManager.GetTheme().TextColor, Core.System.OpenApps[i].Title, TX + ((TipWidth / 2) - (TL / 2)) - 8, TY + (((8 + Devide * 2) / 2) - 8));
                     if (PS2Mouse.MouseStatus == Mosa.External.x86.Driver.Input.MouseStatus.Left && !PressLock)
                     {
 
@@ -74,8 +74,8 @@ namespace CSOS.GUI.Apps
                     int TX = Core.System.ClosedApps[i].X_Dock - ((TipWidth / 2) - (ApplicationIconSize / 2));
                     int TY = Y - (int)((ApplicationIconSize + Devide) * 0.8f);
                     int TL = BitFont.Calculate(Core.System.DefaultFontName, Core.System.ClosedApps[i].Title);
-                    Program.graphics.DrawFilledRoundedRectangle(Core.System.Color2, TX, TY, TipWidth, 8 + Devide * 2, Radius);
-                    Program.graphics.DrawBitFontString(Core.System.DefaultFontName, 0xFFF0F3F4, Core.System.ClosedApps[i].Title, TX + ((TipWidth / 2) - (TL / 2)) - 8, TY + (((8 + Devide * 2) / 2) - 8));
+                    Program.graphics.DrawFilledRoundedRectangle(ThemeManager.GetTheme().FocusedColor, TX, TY, TipWidth, 8 + Devide * 2, Radius);
+                    Program.graphics.DrawBitFontString(Core.System.DefaultFontName, ThemeManager.GetTheme().TextColor, Core.System.ClosedApps[i].Title, TX + ((TipWidth / 2) - (TL / 2)) - 8, TY + (((8 + Devide * 2) / 2) - 8));
                     if (PS2Mouse.MouseStatus == Mosa.External.x86.Driver.Input.MouseStatus.Left && !PressLock)
                     {
                         Core.System.ClosedApps[i].Open();
@@ -94,7 +94,7 @@ namespace CSOS.GUI.Apps
 
             X = (Program.ScreenWidth / 2) - (Width / 2);
 
-            Program.graphics.DrawFilledRoundedRectangle(Core.System.Color2, X, Y, Width, Height, Radius);
+            Program.graphics.DrawFilledRoundedRectangle(ThemeManager.GetTheme().DockBackgroundColor, X, Y, Width, Height, Radius);
 
             int aX = X + Devide;
             for (int i = 0; i < Core.System.OpenApps.Count; i++)
@@ -106,7 +106,7 @@ namespace CSOS.GUI.Apps
 
                 if (Core.System.OpenApps[i].Icon_48 == null)
                 {
-                    Program.graphics.DrawFilledRoundedRectangle(0x0000FF, aX, Y + Devide, ApplicationIconSize, ApplicationIconSize, Radius);
+                    Program.graphics.DrawFilledRoundedRectangle(ThemeManager.GetTheme().NoDockIcon, aX, Y + Devide, ApplicationIconSize, ApplicationIconSize, Radius);
                 }
                 else
                 {
@@ -135,7 +135,7 @@ namespace CSOS.GUI.Apps
 
                 if (Core.System.ClosedApps[i].Icon_48 == null)
                 {
-                    Program.graphics.DrawFilledRoundedRectangle(0x0000FF, aX, Y + Devide, ApplicationIconSize, ApplicationIconSize, Radius);
+                    Program.graphics.DrawFilledRoundedRectangle(ThemeManager.GetTheme().NoDockIcon, aX, Y + Devide, ApplicationIconSize, ApplicationIconSize, Radius);
                 }
                 else
                 {

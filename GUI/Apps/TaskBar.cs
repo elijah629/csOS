@@ -42,10 +42,10 @@ namespace CSOS.GUI.Apps
         }
         public override void UIUpdate()
         {
-            Program.graphics.DrawFilledRectangle(Core.System.Color2, X, Y, Width, Height);
+            Program.graphics.DrawFilledRectangle(ThemeManager.GetTheme().DockBackgroundColor, X, Y, Width, Height);
             Program.graphics.DrawFilledCircle(Color.Red.ToArgb(), Width - TaskBarHeight / 2, TaskBarHeight / 2, 7);
             time = CMOS.Hour + ":" + CMOS.Minute.ToString().PadLeft(2, '0');
-            Program.graphics.DrawBitFontString(Core.System.DefaultFontName, 0xFFF0F3F4, time, (Width / 2) - (BitFont.Calculate(Core.System.DefaultFontName, time) / 2), Y + (Height / 2 - 8));
+            Program.graphics.DrawBitFontString(Core.System.DefaultFontName, ThemeManager.GetTheme().TextColor, time, (Width / 2) - (BitFont.Calculate(Core.System.DefaultFontName, time) / 2), Y + (Height / 2 - 8));
             time.Dispose();
         }
     }
