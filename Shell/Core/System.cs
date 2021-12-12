@@ -1,4 +1,6 @@
 ﻿using CSOS.Shell.Commands;
+using System.Collections.Generic;
+using static CSOS.Shell.Commands.CommandParser;
 using Tools = CSOS.Helper.Tools;
 
 namespace CSOS.Shell.Core
@@ -17,17 +19,16 @@ namespace CSOS.Shell.Core
             GUITerminal.WriteLine(@" | (__\__ \ |__| |____) |");
             GUITerminal.WriteLine(@"  \___|___/\____/|_____/ ");
             GUITerminal.WriteLine("Welcome to csOS!", 0x00FF00);
-
             GUITerminal.WriteLine("The current time is " + Tools.GetTime());
-            ErrorManager.Init();
+            //ErrorManager.Init();
         }
 
-        public static string GetCMDError(string cmd, uint error) => $"[{cmd}] {ErrorManager.GetError(error)}";
+        //public static string GetCMDError(string cmd, string error) => $"[{cmd}] {ErrorManager.GetError(error)}";
 
         public static void Update()
         {
-            GUITerminal.Write("$ ");
-            CommandParserOutput command = new CommandParser().Parse(GUITerminal.ReadLine());
+            GUITerminal.Write("> ");
+            CommandParserOutput command = CommandParser.Parse(GUITerminal.ReadLine());
             switch (command.Command.ToLower())
             {
                 case "echo":
@@ -43,14 +44,16 @@ namespace CSOS.Shell.Core
                     }
                     else
                     {
-                        GUITerminal.WriteLine(GetCMDError("echo", (uint)ErrorManager.Error.ERROR_INVALID_ARGUMENTS), 0xFF0000);
+                        //GUITerminal.WriteLine(ErrorManager.errors[0], 0xFF0000);
                     }
+                    break;
+                case "clear":
+                    GUITerminal.Clear();
                     break;
                 default:
                     GUITerminal.WriteLine("[csOS] Invalid Command: " + command.Command, 0xFF0000);
                     break;
             }
-            command.Dispose();
         }
     }
 }

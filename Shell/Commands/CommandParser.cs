@@ -3,22 +3,14 @@ using System;
 using System.Collections.Generic;
 namespace CSOS.Shell.Commands
 {
-    public class CommandParserOutput : IDisposable
+    public static class CommandParser
     {
-        public List<string> Arguments = new List<string>();
-        public List<char> Flags = new List<char>();
-        public string unparsed = "";
-        public string Command = "";
-        public void Dispose()
-        {
-            Arguments = null;
-            Flags = null;
-            Command = null;
-        }
-    }
-    public class CommandParser
-    {
-        public CommandParserOutput Parse(string commandLine)
+        public struct CommandParserOutput {
+            public List<string> Arguments;
+            public List<char> Flags;
+            public string Command;
+        };
+        public static CommandParserOutput Parse(string commandLine)
         {
             List<string> Arguments = new List<string>();
             List<char> Flags = new List<char>();
@@ -35,8 +27,7 @@ namespace CSOS.Shell.Commands
             {
                 Arguments = Arguments,
                 Flags = Flags,
-                Command = Command,
-                unparsed = commandLine
+                Command = Command
             };
         }
     }

@@ -1,111 +1,77 @@
-﻿using Mosa.External.x86.Drawing;
+﻿using CSOS.GUI.Core;
+using Mosa.External.x86.Drawing;
 using Mosa.External.x86.Drawing.Fonts;
 using Mosa.External.x86.Driver;
+using Mosa.External.x86.Driver.Input;
+using System;
 
 namespace CSOS.GUI.UI
 {
     public class Button
     {
-        public uint BackgroundColor = 0xFFFFFF;
-        public uint OverBackgroundColor = 0x808080;
-        public uint ClickedBackgroundColor = 0x36454F;
-        public uint TextColor = 0x0;
-        public uint LineColor = 0x0;
-        private uint CurrentColor;
         public int X = 0;
         public int Y = 0;
-        public int Width = "Button".Length * 8 + 10;
-        public int Height = 20;
-        public string Text = "Button";
-        public string Font = "asc16";
-        public VirtualGraphics vgraphics;
-        public Graphics graphics;
-
+        public string Text = "";
+        private int Height = 20;
+        private int Width = 0;
+        private uint Current_Color;
+        public uint Background_Color = Core.System.Color2;
+        public int Border_Radius = 0;
         private bool PressLock = false;
-
-        public Button()
+        public Action OnClick;
+        public void Init()
         {
-            CurrentColor = BackgroundColor;
+            Current_Color = Background_Color;
+            Width = Width < BitFont.Calculate(Core.System.DefaultFontName,Text) * 2 ? BitFont.Calculate(Core.System.DefaultFontName, Text) * 2 : Width;
         }
-
-        public void Draw(VirtualGraphics graphics)
+        public void Update(VirtualGraphics graphics, int winX, int winY)
         {
-            graphics.DrawFilledRoundedRectangle(CurrentColor, X, Y, Width, Height, 5);
-            if (Font.ToLower() == "asc16")
+            graphics.DrawFilledRoundedRectangle(Current_Color, X, Y, Width, Height, Border_Radius);
+            graphics.DrawBitFontString(Core.System.DefaultFontName, Core.System.TextColor, Text, X, Y);
+            if (PS2Mouse.X > X + winX && PS2Mouse.X < X + winX + Width && PS2Mouse.Y > Y + winY && PS2Mouse.Y < Y + winY + Height)
             {
-                graphics.DrawACS16String(TextColor, Text, X + 5, Y + 5);
-            }
-            else
-            {
-                graphics.DrawBitFontString(Font, TextColor, Text, X + 5, Y + 5);
-            }
-        }
-
-        public void Draw(Graphics graphics)
-        {
-            graphics.DrawFilledRoundedRectangle(CurrentColor, X, Y, Width, Height, 5);
-            if (Font.ToLower() == "asc16")
-            {
-                graphics.DrawACS16String(TextColor, Text, X + 5, Y + 5);
-            }
-            else
-            {
-                graphics.DrawBitFontString(Font, TextColor, Text, X + 5, Y + 5);
-            }
-        }
-
-        public void Update(int scrX, int scrY)
-        {
-            Draw(vgraphics);
-            if (PS2Mouse.X > X + scrX && PS2Mouse.X < X + scrX + Width && PS2Mouse.Y > Y + scrY && PS2Mouse.Y < Y + scrY + Height)
-            {
-                CurrentColor = OverBackgroundColor;
-            }
-            if (PS2Mouse.MouseStatus == Mosa.External.x86.Driver.Input.MouseStatus.Left)
-            {
-                if (!PressLock)
+                CursorManager.SetCursor("pointer");
+                Current_Color = Core.System.Color1;
+                if (PS2Mouse.MouseStatus == MouseStatus.Left && !PressLock)
                 {
-                    if (PS2Mouse.X > X + scrX && PS2Mouse.X < X + scrX + Width && PS2Mouse.Y > Y + scrY && PS2Mouse.Y < Y + scrY + Height)
-                    {
-                        CurrentColor = ClickedBackgroundColor;
-                        Pressed();
-                        PressLock = true;
-                    }
+                    OnClick.Invoke();
+                    PressLock = true;
+                }
+                else
+                {
+                    PressLock = false;
+                    Current_Color = Background_Color;
                 }
             }
             else
             {
-                PressLock = false;
-                CurrentColor = BackgroundColor;
+                CursorManager.SetCursor("normal");
             }
         }
-
         public void Update()
         {
-            Draw(graphics);
+            Graphics graphics = Program.graphics;
+            graphics.DrawFilledRoundedRectangle(Current_Color, X, Y, Width, Height, Border_Radius);
+            graphics.DrawBitFontString(Core.System.DefaultFontName, Core.System.TextColor, Text, X, Y);
             if (PS2Mouse.X > X && PS2Mouse.X < X + Width && PS2Mouse.Y > Y && PS2Mouse.Y < Y + Height)
             {
-                CurrentColor = OverBackgroundColor;
-            }
-            else if (PS2Mouse.MouseStatus == Mosa.External.x86.Driver.Input.MouseStatus.Left)
-            {
-                if (!PressLock)
+                CursorManager.SetCursor("pointer");
+                Current_Color = Core.System.Color1;
+                if (PS2Mouse.MouseStatus == MouseStatus.Left && !PressLock)
                 {
-                    if (PS2Mouse.X > X && PS2Mouse.X < X + Width && PS2Mouse.Y > Y && PS2Mouse.Y < Y + Height)
-                    {
-                        CurrentColor = ClickedBackgroundColor;
-                        Pressed();
-                        PressLock = true;
-                    }
+                    OnClick.Invoke();
+                    PressLock = true;
+                }
+                else
+                {
+                    Current_Color = Background_Color;
+                    PressLock = false;
                 }
             }
             else
             {
-                PressLock = false;
-                CurrentColor = BackgroundColor;
+                CursorManager.SetCursor("normal");
             }
         }
-
-        public virtual void Pressed() { }
     }
 }
