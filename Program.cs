@@ -3,7 +3,7 @@ using Mosa.External.x86;
 using Mosa.External.x86.Drawing;
 using Mosa.External.x86.Drawing.Fonts;
 using Mosa.External.x86.Driver;
-//using Mosa.External.x86.FileSystem
+using Mosa.External.x86.FileSystem;
 using Mosa.Kernel.x86;
 using Mosa.Runtime.Plug;
 using System.Drawing;
@@ -14,11 +14,11 @@ namespace CSOS
 {
     public static unsafe class Program
     {
-        public static int ScreenWidth = 1024;
-        public static int ScreenHeight = 768;
+        public static int ScreenWidth = VBE.IsVBEAvailable ? VBE.VBEModeInfo->ScreenWidth : 1024;
+        public static int ScreenHeight = VBE.IsVBEAvailable ? VBE.VBEModeInfo->ScreenHeight : 768;
         private static bool Panicked = false;
         public static Graphics graphics;
-        //public static FAT32 fs;
+        public static FAT32 fs;
         public static void Main() { }
 
         [VBERequire(1024, 768, 32)]
@@ -33,16 +33,11 @@ namespace CSOS
             IDT.OnInterrupt += IDT_OnInterrupt;
             Panic.OnPanic += Panic_OnPanic;
 
-            /*IDisk disk = new IDEDisk(0);
+            IDisk disk = new IDEDisk(IDE.ControllerIndex.One);
             MBR mBR = new MBR();
             mBR.Initialize(disk);
-            fs = new FAT32(disk, mBR.PartitionInfos[0]);*/
+            fs = new FAT32(disk, mBR.PartitionInfos[0]);
 
-            if (VBE.IsVBEAvailable)
-            {
-                ScreenWidth = VBE.VBEModeInfo->ScreenWidth;
-                ScreenHeight = VBE.VBEModeInfo->ScreenHeight;
-            }
             graphics = GraphicsSelector.GetGraphics(ScreenWidth, ScreenHeight);
             new Thread(SelectBoot).Start();
         }

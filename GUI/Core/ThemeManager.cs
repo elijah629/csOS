@@ -18,8 +18,10 @@
             public uint AppBackground;
             public uint DockBackgroundColor;
         }
-        private static Theme currentTheme;
-        public static Theme GetTheme() => currentTheme;
-        public static void SetTheme(Theme theme) => currentTheme = theme;
+        public static Theme CurrentTheme { get; private set; }
+        public static void SetTheme(Theme theme)
+        {
+            CurrentTheme = theme;
+        }
     }
 }

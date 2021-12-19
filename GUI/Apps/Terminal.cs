@@ -200,7 +200,7 @@ namespace CSOS.GUI.Apps
             ToTop();
         }
     }
-    public class Terminal : App
+    public class Terminal : Window
     {
         private readonly TerminalCore terminal;
         public Terminal()
@@ -209,22 +209,18 @@ namespace CSOS.GUI.Apps
             Title = "Terminal";
             Icon_16 = new Bitmap(ResourceManager.GetObject("terminal_16.bmp"));
             Icon_48 = new Bitmap(ResourceManager.GetObject("terminal_48.bmp"));
-            if (windowGraphics == null)
+            if (WindowGraphics == null)
             {
-                windowGraphics = new VirtualGraphics(Width, Height);
+                WindowGraphics = new VirtualGraphics(Width, Height);
             }
 
-            terminal = new TerminalCore(windowGraphics, Color.White.ToArgb(), Color.Black.ToArgb());
+            terminal = new TerminalCore(WindowGraphics, Color.White.ToArgb(), Color.Black.ToArgb());
             terminal.ToTop();
             terminal.WriteLine("Hello!, I am in development");
         }
-        public override void InputUpdate()
-        {
-
-        }
         public override void UIUpdate()
         {
-            Program.graphics.DrawImageASM(windowGraphics.bitmap, X, Y);
+            Program.graphics.DrawImageASM(WindowGraphics.bitmap, X, Y);
         }
     }
 

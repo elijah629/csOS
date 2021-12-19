@@ -2,7 +2,6 @@
 using Mosa.External.x86.Drawing.Fonts;
 using Mosa.External.x86.Driver;
 using System.Collections.Generic;
-using System.Drawing;
 
 namespace CSOS.GUI.Core
 {
@@ -10,8 +9,9 @@ namespace CSOS.GUI.Core
     {
         public const string DefaultFontName = "ArialCustomCharset16";
         public static int[] cursor;
-        public static List<App> OpenApps;
-        public static List<App> ClosedApps;
+        public static List<Window> OpenApps;
+        public static List<Process> OpenProcs;
+        public static List<Window> ClosedApps;
         public static unsafe void Boot()
         {
             CursorManager.Init();
@@ -25,7 +25,7 @@ namespace CSOS.GUI.Core
                 TextColor = 0xFFF0F3F4,
                 BackgroundColor = 0x313131,
                 DockBackgroundColor = 0x141414,
-                CursorFillColor =0xFFFFFF,
+                CursorFillColor = 0xFFFFFF,
                 CursorOutlineColor = 0x0,
                 WindowCloseButtonColor = 0xFF0000,
                 WindowMinimizeButtonColor = 0xFFFFFF,
@@ -33,24 +33,28 @@ namespace CSOS.GUI.Core
                 AppBackground = 0xFFF0F3F4,
                 NoAppIcon = 0x0000FF,
                 NoDockIcon = 0x0000FF,
-                HoverColor = 0x18B93939,
+                HoverColor = 0x414141,
                 UnFocusedColor = 0x414141,
-
             });
-            OpenApps = new List<App>();
-            ClosedApps = new List<App>();
-            new TaskBar().Open();
-            new Dock().Open();
+            OpenApps = new List<Window>();
+            ClosedApps = new List<Window>();
+            OpenProcs = new List<Process>();
+            new TaskBar().Start();
+            new Dock().Start();
             new TaskManager().Close();
             new Terminal().Close();
         }
         public static void Update()
         {
-            Program.graphics.Clear(ThemeManager.GetTheme().BackgroundColor);
-            Program.graphics.DrawBitFontString(DefaultFontName, ThemeManager.GetTheme().TextColor, "FPS: " + FPSMeter.FPS, 10, 46);
+            Program.graphics.Clear(ThemeManager.CurrentTheme.BackgroundColor);
+            Program.graphics.DrawBitFontString(DefaultFontName, ThemeManager.CurrentTheme.TextColor, "FPS: " + FPSMeter.FPS, 10, 46);
             for (int i = 0; i < OpenApps.Count; i++)
             {
                 OpenApps[i].Update();
+            }
+            for (int i = 0; i < OpenProcs.Count; i++)
+            {
+                OpenProcs[i].Update();
             }
             DrawCursor(PS2Mouse.X, PS2Mouse.Y);
             Program.graphics.Update();
@@ -64,12 +68,12 @@ namespace CSOS.GUI.Core
                 {
                     if (cursor[h * 12 + w] == 1)
                     {
-                        Program.graphics.DrawPoint(ThemeManager.GetTheme().CursorOutlineColor, w + x, h + y);
+                        Program.graphics.DrawPoint(ThemeManager.CurrentTheme.CursorOutlineColor, w + x, h + y);
                     }
 
                     if (cursor[h * 12 + w] == 2)
                     {
-                        Program.graphics.DrawPoint(ThemeManager.GetTheme().CursorFillColor, w + x, h + y);
+                        Program.graphics.DrawPoint(ThemeManager.CurrentTheme.CursorFillColor, w + x, h + y);
                     }
                 }
             }
