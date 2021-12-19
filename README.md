@@ -14,18 +14,18 @@ csOS is a C# Operating System, written in [Mosa](https://github.com/nifanfa/MOSA
 - Apps Manager
 - Theme Manager
 - Mouse Manager
+- File System (FS)
 
 ## Todo
 
-- File System (FS)
 - Desktop (With apps icons)
 - Working Task Manager
 - Login Screen
 - Encryption/Decryption Tools
 - More Apps
-- Internet
-- TCP/IP Client and Server
-- Browser
++ Internet
+  + TCP/IP Client and Server
+  + Browser
 
 ## Images
 
