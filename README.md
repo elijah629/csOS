@@ -8,7 +8,6 @@ csOS is a C# Operating System, written in [Mosa](https://github.com/nifanfa/MOSA
 
 ## Features:
 
-- Graphics
 - Graphical User Interface (GUI)
 - Apps
 - Apps Manager
