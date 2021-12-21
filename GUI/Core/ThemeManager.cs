@@ -1,4 +1,4 @@
-﻿namespace CSOS.GUI.Core
+﻿namespace csOS.GUI.Core
 {
     public static class ThemeManager
     {
@@ -15,7 +15,7 @@
             public uint WindowCloseButtonColor;
             public uint NoDockIcon;
             public uint NoAppIcon;
-            public uint AppBackground;
+            public uint DefaultAppBackground;
             public uint DockBackgroundColor;
         }
         public static Theme CurrentTheme { get; private set; }

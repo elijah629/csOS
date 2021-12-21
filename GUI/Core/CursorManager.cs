@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace CSOS.GUI.Core
+namespace csOS.GUI.Core
 {
     public static class CursorManager
     {

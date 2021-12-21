@@ -2,7 +2,7 @@
 using Mosa.Kernel.x86;
 using System;
 
-namespace CSOS.Helper
+namespace csOS.Helper
 {
     public static class Tools
     {

@@ -1,7 +1,7 @@
 ﻿using Mosa.External.x86;
 using System;
 using System.Collections.Generic;
-namespace CSOS.Shell.Commands
+namespace csOS.Shell.Commands
 {
     public static class CommandParser
     {

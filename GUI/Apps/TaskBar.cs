@@ -1,8 +1,8 @@
-﻿using CSOS.GUI.Core;
+﻿using csOS.GUI.Core;
 using Mosa.External.x86.Drawing.Fonts;
-using Tools = CSOS.Helper.Tools;
+using Tools = csOS.Helper.Tools;
 
-namespace CSOS.GUI.Apps
+namespace csOS.GUI.Apps
 {
     public class TaskBar : Process
     {

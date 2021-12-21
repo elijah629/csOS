@@ -1,8 +1,8 @@
-﻿using CSOS.GUI.Core;
+﻿using csOS.GUI.Core;
 using Mosa.External.x86.Drawing.Fonts;
 using Mosa.External.x86.Driver;
 
-namespace CSOS.GUI.Apps
+namespace csOS.GUI.Apps
 {
     public class Dock : Process
     {

@@ -1,6 +1,6 @@
 ﻿using Mosa.Kernel.x86;
 
-namespace CSOS.GUI.Core
+namespace csOS.GUI.Core
 {
     internal static class FPSMeter
     {

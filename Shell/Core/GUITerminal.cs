@@ -4,7 +4,7 @@ using Mosa.External.x86.Driver;
 using Mosa.Kernel.x86;
 using Mosa.Runtime.x86;
 
-namespace CSOS.Shell.Core
+namespace csOS.Shell.Core
 {
     public static unsafe class GUITerminal
     {

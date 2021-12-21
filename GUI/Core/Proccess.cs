@@ -1,4 +1,5 @@
-﻿namespace CSOS.GUI.Core
+﻿
+namespace csOS.GUI.Core
 {
     public class Process
     {

@@ -1,7 +1,7 @@
 ﻿using Mosa.External.x86;
 using System.Collections.Generic;
 
-namespace CSOS.Helper
+namespace csOS.Helper
 {
     public class Menu
     {

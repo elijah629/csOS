@@ -1,4 +1,4 @@
-using CSOS.Helper;
+using csOS.Helper;
 using Mosa.External.x86;
 using Mosa.External.x86.Drawing;
 using Mosa.External.x86.Drawing.Fonts;
@@ -10,7 +10,7 @@ using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Threading;
 
-namespace CSOS
+namespace csOS
 {
     public static unsafe class Program
     {
@@ -24,7 +24,8 @@ namespace CSOS
         [VBERequire(1024, 768, 32)]
         [Resource(
             "terminal_16.bmp",
-            "terminal_48.bmp"
+            "terminal_48.bmp",
+            "LucidaConsoleCustomCharset16.bin"
         )]
         [Plug("Mosa.Runtime.StartUp::KMain")]
         [UnmanagedCallersOnly(EntryPoint = "KMain", CallingConvention = CallingConvention.StdCall)]

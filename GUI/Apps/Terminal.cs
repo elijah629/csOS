@@ -1,4 +1,4 @@
-﻿using CSOS.GUI.Core;
+﻿using csOS.GUI.Core;
 using Mosa.External.x86;
 using Mosa.External.x86.Drawing;
 using Mosa.External.x86.Drawing.Fonts;
@@ -7,7 +7,7 @@ using Mosa.Kernel.x86;
 using Mosa.Runtime.x86;
 using System.Drawing;
 
-namespace CSOS.GUI.Apps
+namespace csOS.GUI.Apps
 {
     public class TerminalCore
     {

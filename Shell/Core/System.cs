@@ -1,8 +1,9 @@
-﻿using CSOS.Shell.Commands;
-using Tools = CSOS.Helper.Tools;
-using System;
+﻿using csOS.Helper;
+using csOS.Shell.Commands;
+using System.Collections.Generic;
+using Tools = csOS.Helper.Tools;
 
-namespace CSOS.Shell.Core
+namespace csOS.Shell.Core
 {
     public static class System
     {
@@ -48,11 +49,24 @@ namespace CSOS.Shell.Core
                         GUITerminal.WriteLine(estr);
                     }
                     break;
-/*                case "ls":
-                    //FAT32 fs = Program.fs;
-                    //Encoding.ASCII.GetString();
-                    //GetBytes
-                    break;*/
+                case "stack":
+                    Stack<int> myStack = new Stack<int>(new int[]
+                    {
+                        1,2,3,4,5,6
+                    });
+                    // Displays the Stack.
+                    GUITerminal.WriteLine("Stack values:");
+                    GUITerminal.WriteLine(myStack.Pop().ToString());
+                    GUITerminal.WriteLine(myStack.Pop().ToString());
+                    GUITerminal.WriteLine(myStack.Peek().ToString());
+                    myStack.Push(999);
+                    GUITerminal.WriteLine(myStack.Peek().ToString());
+                    break;
+                case "ini":
+                    /*INI.INIFile parsed = INI.Parse(@"[I]
+n=i");
+                    GUITerminal.WriteLine(parsed.Sections["I"].Name);*/
+                    break;
                 case "clear":
                     GUITerminal.Clear();
                     break;
